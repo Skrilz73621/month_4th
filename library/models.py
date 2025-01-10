@@ -17,9 +17,31 @@ class Books(models.Model):
     trailer = models.URLField(verbose_name='Вставьте ссылку на трейлер')
 
 
-class Meta:
-    verbose_name = 'книга'
-    verbose_name_plural = 'книги'
-    
+    class Meta:
+        verbose_name = 'книга'
+        verbose_name_plural = 'книги'
+        
     def __str__(self):
-        return f'{self.title}:{self.price}'
+        return f'{self.title}'
+    
+    
+class Reviews(models.Model):
+    STARS = (
+        ("⭐","⭐"),
+        ("⭐⭐","⭐⭐"),
+        ("⭐⭐⭐","⭐⭐⭐"),
+        ("⭐⭐⭐⭐","⭐⭐⭐⭐"),
+        ("⭐⭐⭐⭐⭐","⭐⭐⭐⭐⭐"),
+    )
+        
+    reviews_choice = models.ForeignKey(Books, on_delete=models.CASCADE, related_name='books')
+    created_at = models.DateField(auto_now_add=True)
+    comment = models.TextField()
+    stars = models.CharField(max_length=100, choices=STARS, default='⭐⭐⭐')
+    
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+        
+    def __str__(self):
+        return f'{self.comment}:{self.stars}'
