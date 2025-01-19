@@ -1,30 +1,45 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from . import models
+from django.views import generic
 from django.http import HttpResponse
 import datetime
-
-def about_me(request):
-    if request.method == 'GET':
-        return HttpResponse('Hello, this is "about me" page')
-
-def about_my_pets(request):
-    if request.method == 'GET':
-        return HttpResponse('Hello, this is "about_my_pets" page')
+from . import forms
     
-def date_time(request):
-    if request.method == 'GET':
-        i = datetime.datetime.now()
-        return HttpResponse(f'Hello, this is "date_time" page, {i}') 
-    
-def book_list(request):
-    if request.method == 'GET':
-        book_list = models.Books.objects.all().order_by('-id')
-        context = {'book_list':book_list}
-        return render(request, context=context, template_name='book.html')
-    
-def book_detail(request, id):
-    if request.method == 'GET':
-        book = get_object_or_404(models.Books, id=id)
-        context = {'book': book}
-        return render(request, context=context, template_name='book_detail.html')
+# def book_list(request):
+#     if request.method == 'GET':
+#         book_list = models.Books.objects.all().order_by('-id')
+#         context = {'book_list':book_list}
+#         return render(request, context=context, template_name='book.html')
 
+
+class BookList(generic.ListView):
+    template_name = 'book.html'
+    context_object_name = 'book_list'
+    model = models.Books
+    
+    def get_queryset(self):
+        return self.model.objects.all().order_by('-id')
+    
+# def book_detail(request, id):
+#     if request.method == 'GET':
+#         book = get_object_or_404(models.Books, id=id)
+#         context = {'book': book}
+#         return render(request, context=context, template_name='book_detail.html')
+
+
+class BookDetail(generic.DetailView):
+    template_name = 'book_detail.html'
+    context_object_name = 'book'
+    
+    def get_object(self, **kwargs):
+        todo_id = self.kwargs.get('id')
+        return get_object_or_404(models.Books, id = todo_id)
+
+
+class AddReview(generic.CreateView):
+    template_name = 'add_review.html'
+    form_class = forms.ReviewForm
+    success_url = '/'
+    
+    def form_valid(self, form):
+        return super(AddReview, self).form_valid(form=form)

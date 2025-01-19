@@ -13,12 +13,13 @@
             <p>{{i.name}}</p>
             <p>{{i.city}}</p>
             <p>{{i.email}}</p>
+            <img src="{{i.book.image.url}}" alt="">
             <button><a href="/cart_list/{{ i.id }}/">Подробнее</a></button>
             <button><a href="/cart_list/{{ i.id }}/delete/">Удалить с корзины</a></button>
             <button><a href="/cart_list/{{ i.id }}/update/">Изменить</a></button>
             <button><a href="/add_to_cart/">Добавить в корзину</a></button>
         </li>
-    </ol>
+    </ol>   
     {% endfor %}
 </body>
 </html>
