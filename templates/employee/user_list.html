@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <ul>
+            {% for i in employee_list %}
+            <li> {{i.username}} </li>
+            <li> {{i.phone_number}} </li>
+            <li> {{i.age}} </li>
+            {% if i.experience %}
+            <li>У этого человека вот такая зарплата: {{i.salary}} </li>
+            {% else %}
+            <li>{{i.salary}}</li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+
+        <form action="{% url 'employee:login' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Выйти из аккаунта</button>
+        </form>
+    </body>
+
+    </html>
+</body>
+
+</html>
