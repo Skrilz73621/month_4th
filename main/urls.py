@@ -10,7 +10,8 @@ urlpatterns = [
     path('', include('hashtags.urls')),
     path('', include('cart.urls')),
     path('', include('parser.urls')),
-    path('', include('employee.urls'))
+    path('', include('employee.urls')),
+    path('', include('dishes.urls'))
 ]
 
 

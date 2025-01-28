@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'hashtags',
     'cart',
     'parser',
-    'employee'
+    'employee',
+    'dishes'
 ]
 
 MIDDLEWARE = [

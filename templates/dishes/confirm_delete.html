@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="post">
+        <h1>Вы уверены, что хотите удалить этот рецепт</h1>
+        {% csrf_token %}
+        <button type="submit">Да</button>
+        <button type="button"><a href="{% url 'recipe_list' %}">Нет</a></button>
+    </form>
+</body>
+</html>
